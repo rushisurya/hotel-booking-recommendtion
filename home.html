@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+<head>
+	<title>Book Hotels</title>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			font-family: 'Source Sans Pro', sans-serif;
+		}
+		#hinfo{
+			width: 500px; height: 200px; border: 1px solid black; margin: 0 auto; margin-bottom: 10px; display: flex;
+		}
+		#himg{
+			width: 300px; height: 100%; overflow: hidden;
+		}
+		#hdata{
+			width: 200px; height: 100%; text-align: center;
+		}
+	</style>
+</head>
+<body onload="print()">
+
+	<ul style="text-align: center;">
+		<h1>Hotel Booking</h1>
+	</ul>
+
+	<div id="greet"></div>
+
+	<div id="howmany"></div>
+
+	<div id="here"></div>
+
+	<script type="text/javascript">
+		function print(){
+			var user = sessionStorage.getItem("user");
+			document.getElementById("greet").innerHTML = "Welcome  " + user +"..!";
+		}
+	</script>
+	<script>
+		var hm = 0;
+		var hd = [];
+		var hl = [];
+		$(document).ready(function(){
+			$.getJSON("hotels.json", function(data){
+				$.each(data, function(key, value){
+					$("#here").append('<div id="hinfo"><div id="himg"><img src="'+value.photo+'" style="height: 100%;"></div><div id="hdata"><h2>'+value.namee+'</h2><h3>Location:'+value.Location+'</h3><button id="'+key+'" onclick="red('+key+')">Book</button></div></div>');
+					hd[key] = value.namee;
+					hl[key] = value.Location;
+				});
+
+				hm = data.length;
+				$("#howmany").append('<h3>We found you '+hm+' hotels</h3>');
+			});
+		});
+
+		function red(readid){
+			var n = readid;
+			var v = localStorage.getItem("visit");
+			if (v === null) {
+			    v = 0;
+			}
+			v++;
+			localStorage.setItem("visit", v);
+			window.location.href="hotel.html?hname="+hd[n]+"&loc="+hl[n];
+		}
+	</script>
+</body>
+</html>

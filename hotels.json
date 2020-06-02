@@ -1,0 +1,33 @@
+[
+	{
+		"namee" : "Oberoi Hotel",
+		"Location" : "Delhi",
+		"photo" : "https://www.ahstatic.com/photos/5546_ho_01_p_2048x1536.jpg",
+		"id" : "0"
+	},
+	{
+		"namee" : "Taj Hotel",
+		"Location" : "Mumbai",
+		"photo" : "https://www.bluesunhotels.com/EasyEdit/UserFiles/PageImages/hotel-elaphusa-bol-brac/hotel-elaphusa-bol-brac-635342950708455391-1_570_320.jpeg",
+		"id" : "1"
+	},
+	{
+		"namee" : "Grand Hyatt",
+		"Location" : "Delhi",
+		"photo" : "https://www.h-hotels.com/_Resources/Persistent/b819b495c819b5c151432e584aa0968dc3607c95/aussenansicht_nacht_01_h2_hotel_muenchen-1920x1080-1200x675.jpg",
+		"id" : "2"
+	},
+	{
+		"namee" : "Ramada Hotel",
+		"Location" : "Mumbai",
+		"photo" : "https://media-cdn.tripadvisor.com/media/photo-s/09/e4/2a/5c/mi-amor.jpg",
+		"id" : "3"
+	},
+	{
+		"namee" : "RaddisonHotel",
+		"Location" : "Delhi",
+		"photo" : "https://m.radisson.com/ow-cms/rad/images/hotels/DULUTH/NEW_PILOT/DULU_75442831_Exterior_2403x3600.jpg",
+		"id" : "4"
+	}
+
+]

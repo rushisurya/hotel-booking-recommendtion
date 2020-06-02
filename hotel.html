@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hotel Page</title>
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<style type="text/css">
+
+			body{
+				font-family: 'Source Sans Pro', sans-serif;
+			}
+			#rec{
+				width: 80%;
+				height: fit-content;
+				border: 1px solid black;
+				display: flex;
+			}
+			#rech{
+				width: fit-content;
+				height: 50px;
+				background-color: #0d0d0d;
+				padding: 10px;
+				color:  white;
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body onload="tellHotel()">
+		<ul style="text-align: center;">
+			<h1>Hotel Booking</h1>
+		</ul>
+
+		<div id="pagename"></div>
+		<div style="display: flex;">
+			<div id="visitors" style="margin: 10px;"></div>
+			<div id="bookings" style="margin: 10px;"></div>
+			<div id="drafts" style="margin: 10px;"></div>
+		</div>
+
+		<div style="text-align: center;">
+			<h3>Book This Hotel</h3>
+			Name:<input id="nameb" type="text" name="name">
+			<br>
+			<br>
+			D.O.B:<input id="dobb" type="date" name="dob">
+			<br>
+			<br>
+			<button onclick="booking()">Book</button>
+		</div>
+	<br>
+	<br>
+		<div>
+			<h2>Reccomendations:</h2>
+			<div id="mloc"></div>
+			<div id="rec"></div>
+		</div>
+
+		<script>
+			function booking(){
+				var i1 = document.getElementById("nameb").value;
+				var i2 = document.getElementById("dobb").value;
+				if(i1 != "" && i2 != ""){
+					var book = localStorage.getItem("book");
+					if (book === null) {
+						book = 0;
+					}
+					book++;
+					localStorage.setItem("book", book);
+					document.getElementById("bookings").innerHTML = "Bookings: "+book;
+					document.getElementById("nameb").value = "";
+					document.getElementById("dobb").value = "";
+				}else{
+					alert("Fill both fields to book.");
+				}
+			}
+
+			window.onunload = function() {
+				var j1 = document.getElementById("nameb").value;
+				var j2 = document.getElementById("dobb").value;
+				if(j1 != "" || j2 != ""){
+					if (confirm("Do you want to save a draft ?")) {
+						var draft = localStorage.getItem("draft");
+						if (draft === null) {
+							draft = 0;
+						}
+						draft++;
+						localStorage.setItem("draft", draft);
+					} else {
+						
+					}
+				}
+			}
+
+		</script>
+
+		<script>
+
+			function getUrlVars() {
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+
+			function tellHotel(){
+				const name = getUrlVars()["hname"];
+				var loc = getUrlVars()["loc"];
+				//var m = 1;
+				var v2 = localStorage.getItem("visit");
+				var b = localStorage.getItem("book");
+				var d = localStorage.getItem("draft");
+				//var visitor = parseInt(localStorage.getItem("visit1"));
+				document.getElementById("visitors").innerHTML = "Visitors: "+v2;
+				document.getElementById("bookings").innerHTML = "Bookings: "+b;
+				document.getElementById("drafts").innerHTML = "Drafts: "+d;
+				document.getElementById("pagename").innerHTML = "<h2>Welcome to the "+ name +" page</h2> <h3>Location: "+loc+"</h3>";
+				document.getElementById("mloc").innerHTML = "More hotels in "+loc;
+				$.getJSON("hotels.json", function(data){
+					$.each(data, function(key, value){
+						if (value.Location == loc) {
+							if(value.namee != name){
+								$("#rec").append('<div id="rech">'+value.namee+'</div>');
+							}	
+						}
+					});
+				});
+			}
+
+		</script>
+	</body>
+</html>
